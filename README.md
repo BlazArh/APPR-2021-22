@@ -20,4 +20,5 @@ Vnaprej pripravljene funkcije se nahajajo v datotekah v mapi `lib/`.
 Potrebne knjižnice so v datoteki `lib/libraries.r`
 Podatkovni viri so v mapi `podatki/`.
 Zemljevidi v obliki SHP, ki jih program pobere,
-se shranijo v mapo `../zemljevidi/` (torej izven mape projekta).
+se shranijo v mapo `../zemljevidi/` (torej izven mape projekta)
+aaaaaa
