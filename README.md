@@ -18,15 +18,15 @@ Stolpci: države EU, leto, E.I.
 
 ### tabela 3: stopnja varnosti(2016)
 
-Stolpci: države EU, 2016, stopnja kriminala
+Stolpci: države EU, 2016, stopnja varnosti
 
 ### tabela 4: stopnja varnost(2017)
 
-Stolpci: države EU, 2017, stopnja kriminala
+Stolpci: države EU, 2017, stopnja varnosti
 
 ### tabela 5: stopnja varnost(2018)
 
-Stolpci: države EU, 2018, stopnja kriminala
+Stolpci: države EU, 2018, stopnja varnosti
 
 Ko bom uvozil in počistil tabele 3,4,5, jih bom združil v eno tabelo.
 
@@ -48,7 +48,7 @@ Tabela plač: https://en.wikipedia.org/wiki/List_of_European_countries_by_averag
 
 Tabela izobrazbe: http://hdr.undp.org/en/indicators/137506
 
-Tabela kriminal:
+Tabela varnosti:
   - 2016: https://www.numbeo.com/crime/rankings_by_country.jsp?title=2016&region=150
   - 2017: https://www.numbeo.com/crime/rankings_by_country.jsp?title=2017&region=150
   - 2018: https://www.numbeo.com/crime/rankings_by_country.jsp?title=2018&region=150
