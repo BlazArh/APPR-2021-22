@@ -32,7 +32,7 @@ Ko bom uvozil in počistil tabele 3,4,5, jih bom združil v eno tabelo.
 
 ### tabela 6: BDP
 
-stolpci: evropske države, leta, bdp
+stolpci: države EU, leta, bdp
 
 
 ## Končne tabele:
@@ -40,7 +40,7 @@ stolpci: evropske države, leta, bdp
 
 Naredil bom 3 tabele(2016,2017,2018)
 
-stolpci: evropske države, leto, bruto plače, bdp, indeks izobrazbe, stopnja kriminala
+stolpci: države EU, leto, bruto plače, bdp, indeks izobrazbe, stopnja varnosti
 
 ## Viri
 
