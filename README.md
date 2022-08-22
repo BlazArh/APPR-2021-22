@@ -1,7 +1,7 @@
 # Analiza podatkov s programom R - 2021/22
 
 ## Tematika
-Za temo projekta sem si izbral analizo plač v EU. Zraven plač bomo analizirali tudi stopnjo varnosti, indeks izobrazbe in bdp na prebivalca.
+Za temo projekta sem si izbral analizo bruto plač v 25 državah EU med letoma 2013 in 2019. Zraven plač bomo analizirali tudi stopnjo varnosti in kriminala, indeks izobrazbe in število prebivalcev v posameznih državah.
 Cilj naše projektne naloge bo, da ugotovimo npr. koliko visoka izobrazba in višina BDP-ja vplivata na višino plač in ali se ljudje, zaradi višje plače, posledično počutijo bolj varne.
 
 
@@ -69,5 +69,4 @@ Vnaprej pripravljene funkcije se nahajajo v datotekah v mapi `lib/`.
 Potrebne knjižnice so v datoteki `lib/libraries.r`
 Podatkovni viri so v mapi `podatki/`.
 Zemljevidi v obliki SHP, ki jih program pobere,
-se shranijo v mapo `../zemljevidi/` (torej izven mape projekta)
-aaaaaa
+se shranijo v mapo `../zemljevidi/` (torej izven mape projekta).
