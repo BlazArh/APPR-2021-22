@@ -19,3 +19,5 @@ library(XML)
 library(tidyverse)
 library(maptools)
 
+source("lib/uvozi.zemljevid.r")
+

@@ -11,7 +11,7 @@ shinyServer(function(input, output) {
   output$izbor_stolpcev = renderUI({ 
     conditionalPanel( 
       'input.dataset === "tab_skupna"', 
-      checkboxGroupInput("show_vars", "Kateri stolpec naj prika?e:",
+      checkboxGroupInput("show_vars", "Kateri stolpec naj prikaže:",
                          names(SkupnaTabela), selected = names(SkupnaTabela)) 
     ) 
   }) 
