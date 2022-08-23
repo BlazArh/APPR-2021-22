@@ -16,7 +16,6 @@ uvozvarnost <- function(){
   tabelavarnost <- linkVarnost %>% html_table(fill = TRUE)
   Varnost <- tabelavarnost[[2]] %>% select(-Rank) # -Rank spusti stolpec z imenom Rang
   colnames(Varnost) <- c("Drzava", "Kriminal", "Varnost")
-  Varnost <- Varnost %>% pivot_longer(-Drzava, values_to = "vrednost" , names_to = "indeks" )
   Varnost$Leto <- leto
   Skupna <- Varnost
   # uvoz za vsa naslednja leta
@@ -26,7 +25,6 @@ uvozvarnost <- function(){
     tabelavarnost <- linkVarnost %>% html_table(fill = TRUE)
     Varnost <- tabelavarnost[[2]] %>% select(-Rank) # -Rank spusti stolpec z imenom Rang
     colnames(Varnost) <- c("Drzava", "Kriminal", "Varnost")
-    Varnost <- Varnost %>% pivot_longer(-Drzava, values_to = "vrednost" , names_to = "indeks" )
     Varnost$Leto <- leto
     Skupna <- rbind(Skupna, Varnost)
   }
@@ -78,93 +76,17 @@ Population[Population$Drzava == "Slovak Republic",]$Drzava <- "Slovakia"
 
 skupna <- left_join(Dohodek, Population, by = c("Drzava", "Leto"))
 skupna <- left_join(skupna, Izobrazba, by = c("Drzava", "Leto"))
+skupna <- skupna %>% mutate(Leto = parse_number(Leto))
 
-
+skupna <- left_join(skupna, Varnost, by = c("Drzava", "Leto"))
+skupna2 <- skupna
+skupna  <- skupna %>% pivot_longer(-c(1:2), names_to = "tip", values_to = "vrednost")
 drzave <- unique(Varnost$Drzava)
-
 skupna <- skupna %>% filter(Drzava %in% drzave)
 
 
 
-# uvoz2012 <- function(Tabela2012){
-#    obdrzi_1 <- c("Country", "Dohodek.2012")
-#    obdrzi_2 <- c("Country", "Izobrazba.2012")
-#    Tabela2012 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2012(), "Country" = "Country")
-#    return(Tabela2012)
-#  }
-
- uvoz2013 <- function(Tabela2013){
-   obdrzi_1 <- c("Country", "Dohodek.2013")
-   obdrzi_2 <- c("Country", "Izobrazba.2013")
-   obdrzi_3 <- c("Country", "Population.2013")
-   Tabela2013 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2013(), "Country" = "Country") %>% inner_join(uvozipopulation()[, obdrzi_3], "Country" = "Country")
-   return(Tabela2013)
- }
-
- uvoz2014 <- function(Tabela2014){
-   obdrzi_1 <- c("Country", "Dohodek.2014")
-   obdrzi_2 <- c("Country", "Izobrazba.2014")
-   obdrzi_3 <- c("Country", "Population.2014")
-   Tabela2014 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2014(), "Country" = "Country") %>% inner_join(uvozipopulation()[, obdrzi_3], "Country" = "Country")
-   return(Tabela2014)
- }
- uvoz2015 <- function(Tabela2015){
-   obdrzi_1 <- c("Country", "Dohodek.2015")
-   obdrzi_2 <- c("Country", "Izobrazba.2015")
-   obdrzi_3 <- c("Country", "Population.2015")
-   Tabela2015 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2015(), "Country" = "Country") %>% inner_join(uvozipopulation()[, obdrzi_3], "Country" = "Country")
-   return(Tabela2015)
- }
-
- uvoz2016 <- function(Tabela2016){
-   obdrzi_1 <- c("Country", "Dohodek.2016")
-   obdrzi_2 <- c("Country", "Izobrazba.2016")
-   obdrzi_3 <- c("Country", "Population.2016")
-   Tabela2016 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2016(), "Country" = "Country") %>% inner_join(uvozipopulation()[, obdrzi_3], "Country" = "Country")
-   return(Tabela2016)
- }
-
- uvoz2017 <- function(Tabela2017){
-   obdrzi_1 <- c("Country", "Dohodek.2017")
-   obdrzi_2 <- c("Country", "Izobrazba.2017")
-   obdrzi_3 <- c("Country", "Population.2017")
-   Tabela2017 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2017(), "Country" = "Country") %>% inner_join(uvozipopulation()[, obdrzi_3], "Country" = "Country")
-   return(Tabela2017)
- }
-
- uvoz2018 <- function(Tabela2018){
-   obdrzi_1 <- c("Country", "Dohodek.2018")
-   obdrzi_2 <- c("Country", "Izobrazba.2018")
-   obdrzi_3 <- c("Country", "Population.2018")
-   Tabela2018 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2018(), "Country" = "Country") %>% inner_join(uvozipopulation()[, obdrzi_3], "Country" = "Country")
-   return(Tabela2018)
- }
-
- uvoz2019 <- function(Tabela2019){
-   obdrzi_1 <- c("Country", "Dohodek.2019")
-   obdrzi_2 <- c("Country", "Izobrazba.2019")
-   obdrzi_3 <- c("Country", "Population.2019")
-   Tabela2019 <- uvozplace()[ , obdrzi_1] %>% inner_join(uvozizobrazba()[, obdrzi_2], "Country" = "Country") %>% inner_join(uvozvarnost2019(), "Country" = "Country") %>% inner_join(uvozipopulation()[, obdrzi_3], "Country" = "Country")
-   return(Tabela2019)
- }
- 
-uvoz <- uvoz2019()
- 
-skupna_tabela <- function(SkupnaTabela){
-   SkupnaTabela <- uvoz2013() %>% inner_join(uvoz2014(), "Country" = "Country") %>% inner_join(uvoz2015(), "Country" = "Country") %>% inner_join(uvoz2016(), "Country" = "Country")%>% inner_join(uvoz2017(), "Country" = "Country")%>% inner_join(uvoz2018(), "Country" = "Country")%>% inner_join(uvoz2019(), "Country" = "Country")
-   return(SkupnaTabela)
- }
+skupna2
+skupna2 <- skupna2 %>% filter(Drzava %in% drzave)
 
 
-#Tabela2012 <- uvoz2012()
-Izobrazba <- uvozizobrazba()
-Population <- uvozipopulation()
-Dohodek <- uvozplace()
-Tabela2013 <- uvoz2013()
-Tabela2014 <- uvoz2014()
-Tabela2015 <- uvoz2015()
-Tabela2016 <- uvoz2016()
-Tabela2017 <- uvoz2017()
-Tabela2018 <- uvoz2018()
-Tabela2019 <- uvoz2019()
-SkupnaTabela <- skupna_tabela()

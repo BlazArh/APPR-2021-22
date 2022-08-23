@@ -6,13 +6,13 @@ zemljevid <- uvozi.zemljevid("https://www.naturalearthdata.com/http//www.natural
 
 zemljevid$ADMIN <- as.character(zemljevid$ADMIN)
 
-Dohodek_2019 <- SkupnaTabela[, c("Country", "Dohodek.2019")]
+Dohodek_2019 <- skupna %>% filter(Leto == 2019 & tip == "dohodek")
 
-zdruzitev <- left_join(zemljevid, Dohodek_2019, by=c("ADMIN"="Country"))
+zdruzitev <- left_join(zemljevid, Dohodek_2019, by=c("ADMIN"="Drzava"))
 
 slikazemljevid <- ggplot(zdruzitev) + 
-  geom_polygon(aes(x = long, y = lat, group = group, fill = Dohodek.2019 )) + xlab("") + ylab("") + ggtitle("Dohodek prebivalstva 2019") + coord_cartesian(xlim=c(-30, 30), ylim=c(30, 70))
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vrednost )) + xlab("") + ylab("") + ggtitle("Dohodek prebivalstva 2019") + coord_cartesian(xlim=c(-30, 30), ylim=c(30, 70))
 slikazemljevid <- slikazemljevid + guides(fill=guide_legend(title="Dohodek (USD)"))
 slikazemljevid
-
+ 
 
