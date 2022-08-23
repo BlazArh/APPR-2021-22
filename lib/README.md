@@ -1,5 +1,4 @@
 # Knjižnice
 
-Tukaj so zbrane funkcije, ki jih potrebujete za svoj program. Nekaj je že dodanih, preostale pa tekom dela dodajte sami. 
-
-voj
+Tukaj so zbrane funkcije, ki jih lahko uporabite v svojem programu. Seveda jih
+lahko po potrebi tudi spreminjate ali pa dodate svoje.
