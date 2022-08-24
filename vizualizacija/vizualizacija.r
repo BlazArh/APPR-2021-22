@@ -13,9 +13,9 @@ graf1 <- ggplot(data = tabela1) +
   xlab("Država") + ylab("Povprečni letni dohodek ($)") + ggtitle("Višina povprečnega letnega dohodka ($) po državah") +
   geom_hline(aes(yintercept = mean(vrednost)), size=1.5, colour = "black")
 
-print(graf1)
+#print(graf1)
 
-
+mean(tabela1$vrednost)
 #-------------------------------------------------------------------------------
 
 # 7 izbranih držav, čez leta kako kriminal narašča
@@ -27,7 +27,7 @@ tabela2 <- skupna %>% filter(Drzava %in% drzave2) %>% filter(tip == "kriminal")
 graf2 <- ggplot(tabela2, aes(x = Leto, y = vrednost, color = Drzava)) + geom_line()+
   xlab("Leto") + ylab("Indeks kriminala") 
 
-print(graf2)
+#print(graf2)
 
 #-------------------------------------------------------------------------------
 #primerjam Slovenijo in Švico (dohodek izobrazba, populacija)
@@ -43,14 +43,14 @@ graf_primerjava <- function(drzava, tip_podatka, naslov){
 
 graf3 <- graf_primerjava("Slovenia", "dohodek", "Povprečni letni dohodek ($)")
 graf4 <- graf_primerjava("Slovenia", "populacija", "Število prebivalcev")
-graf5 <- graf_primerjava("Slovenia", "izobrazba", "Indeks izobrazbe")
+graf5 <- graf_primerjava("Slovenia", "izobrazba", "Stopnja izobrazbe")
 graf6 <- graf_primerjava("Switzerland", "dohodek", "Povprečni letni dohodek ($)")
 graf7 <- graf_primerjava("Switzerland", "populacija", "Število prebivalcev")
-graf8 <- graf_primerjava("Switzerland", "izobrazba", "Indeks izobrazbe")
+graf8 <- graf_primerjava("Switzerland", "izobrazba", "Stopnja izobrazbe")
 
 
 skupek1 <- plot_grid(graf3, graf4, graf5, graf6, graf7, graf8)
-print(skupek1)
+#print(skupek1)
 
 #-------------------------------------------------------------------------------
 
@@ -92,7 +92,7 @@ gr_DV_2019 <- ggplot(tabela5, aes(x=dohodek, y = varnost))+
 
 #združim v en graf
 skupek2 <- plot_grid(gr_DV_2013, gr_DV_2015, gr_DV_2017, gr_DV_2019)
-print(skupek2)
+#print(skupek2)
 
 #-------------------------------------------------------------------------------
 
@@ -144,7 +144,7 @@ gr_PK_2019
 
 #združim 4 grafe v en graf
 skupek3 <- plot_grid(gr_PK_2013, gr_PK_2015, gr_PK_2017, gr_PK_2019)
-print(skupek3)
+#print(skupek3)
 
 
 #-------------------------------------------------------------------------------
@@ -196,7 +196,7 @@ gr_DP_2019
 
 #zdužim 4 grafe v enega
 skupek4 <- plot_grid(gr_DP_2013, gr_DP_2015, gr_DP_2017, gr_DP_2019)
-print(skupek4)
+#print(skupek4)
 
 #-------------------------------------------------------------------------------
 
@@ -213,6 +213,6 @@ zdruzitev <- left_join(zemljevid, Dohodek_2019, by=c("ADMIN"="Drzava"))
 slikazemljevid <- ggplot(zdruzitev) + 
   geom_polygon(aes(x = long, y = lat, group = group, fill = vrednost )) + xlab("") + ylab("") + ggtitle("Dohodek prebivalstva 2019") + coord_cartesian(xlim=c(-30, 30), ylim=c(30, 70))
 slikazemljevid <- slikazemljevid + guides(fill=guide_legend(title="Dohodek (USD)"))
-slikazemljevid
+#slikazemljevid
  
 

@@ -1,6 +1,6 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+title: "Analiza povprečnega letnega bruto dohodka v Evropski uniji"
+author: "Blaž Arh"
 output:
   html_document: default
   pdf_document:
@@ -10,7 +10,7 @@ output:
 runtime: shiny
 ---
 
-```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, results='hide' , message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 
 # Uvoz vseh potrebnih knjižnic
@@ -20,6 +20,16 @@ source("lib/libraries.r", encoding="UTF-8")
 
 ## Izbira teme
 
+Za projektno nalogo sem si izbral temo, ki se vrti okoli povprečnega letnega dohodka v EU med letoma  2013 in 2019. Zanimalo me je, kako različni dejavniki vplivajo na povprečen letni dohodek. Za te dejavnike sem si izbral indeks varnosti in kriminala, stopnjo izobrazbe in število prebivalcev. Najprej bom pogledal koliko držav ima nadpovprečni letni dohodek in koliko podpovrpečni. Potem bom primerjal kako se giblje indeks kriminala skozi teh 7 let.
+Za konec pa je zanimalo ali občutek varnosti vpliva na dohodek, ali število prebivalcev vpliva na indeks kriminala in če povprečen letni dohodek vpliva na število prebivalcev.
+<br>
+<br>
+
+<center>
+![](slike/denar.jpg)
+
+
+
 ***
 
 ## Obdelava, uvoz in čiščenje podatkov
@@ -27,6 +37,29 @@ source("lib/libraries.r", encoding="UTF-8")
 ```{r uvoz}
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
+
+Podatke, potrebne za analizo, sem uvozil z Wikipedie in spletne strani Numeo (podatki so oblike HTML in CSV). Potem sem te podatke prečistil in spremenil v obliko tidy data. Dobil sem 4 manjše tabele in jih združil v eno veliko.
+
+1. Tabela s podatki o kriminalu in varnosti skozi leta 2013-2019:
+  - `Leto` 
+  - `Država`
+  - `Indeks kriminala`
+  - `Indeks varnosti`
+
+2. Tabela s podatki o stopnji izobrazbe skozi leta 2013-2019:
+  - `Leto`
+  - `Država`
+  - `Stopnja izobrazbe`
+
+3. Tabela s podatki o številu prebivalstva skozi leta 2013-2019:
+  - `Leto`
+  - `Država`
+  - `Število prebivalstva`
+  
+4. Tabela s podatki o povprečnem letnem dohodku med letoma 2013-2019:
+  - `Leto`
+  - `Država`
+  - `Povprečni letni dohodek`
 
 ***
 
@@ -36,11 +69,55 @@ source("uvoz/uvoz.r", encoding="UTF-8")
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
+```{r graf1, echo = FALSE, fig.align='center'}
+graf1
+```
+
+Za začetek sem narisal graf iz katerega je razvidno koliko je povprečni letni dohodek za 26 članic Evropske unije v letu 2019. Opazimo, da ima Slovenija podpovprečni letni dohodek in da je število držav s nadpovprečnim dohodkom višje od teh s podpovprečnim. Povprečen letni dohodek je 44174.73$.
+<br>
+<br>
+
+
+
+
+```{r graf2, echo = FALSE, fig.align='center'}
+graf2
+```
+
+Za ta graf sem si izbral 7 različnih članic iz EU in primerjal, kako se med letoma 2013 in 2019 giblje indeks kriminala. Izbral sem si Avstrijo, Francijo, Nemčijo, Grčijo, Islandijo, Italijo, Slovenijo, Švedsko (želel sem si izbrati čim bolj različne države in države, ki so okoli Slovenije). Edini državi, v katerih indekst kriminala raste, sta, presenetljivo, dve visoko razviti državi Nemčija in Švedska.
+<br>
+<br>
+
+
+```{r skupek1, echo = FALSE, fig.align='center'}
+skupek1
+```
+
+V tem skupku 6-ih grafov sem primerjal Švico in Slovenijo in sicer glede na povprečni letni dohodek, število prebivalcev in indeks izobrazbe med leti 2013 in 2019. V zgornji vrstici je opisana Slovenija v spodnji pa Švica. Pri obeh državah, kjub nizki rodnosti, število prebivalcev še vedno raste. Zanimivo je tudi to, da kljub opazno nižjem povprečnem letnem dohodku Slovenija drži priključek v stopnji izobrazbe.
+<br>
+<br>
+
+```{r skupek2, echo = FALSE, fig.align='center'}
+skupek2
+```
+<br>
+<br>
+V ta graf sem združil grafe 4-ih let (2013, 2015, 2017, 2019) v katerih sem opazoval kako letni povprečni dohodek vpliva na indeks varnosti. Pričakoval sem, da bo graf stalno naraščal, saj se mi je zdelo smiselno, da več kot posameznik zasluži, več denarja nameni za varnost. Ampak izkazalo se je, da ni tako. Krivulje na vseh 4-ih grafih so v večini padale do cca. 45 000$, potem pa šele začele naraščati.
+<br>
+<br>
+
+```{r skupek3, echo = FALSE, fig.align='center'}
+skupek3
+```
+
+Ponovno sem združil 4 grafe za leta 2013, 2015, 2017, 2019. Tokrat me je zanimalo kako število prebivalcev vpliva na indeks kriminala. Moja pričakovanja so bila, da se bo izkazalo, da več kot je ljudi, več je kriminala. A tudi tukaj sem sklepal napačno. Iz grafov je vidno da v večini primerov število prebivalcev ne vpliva na indeks kriminala in da so krivulje kar konstantne. Hitro sem ugotovil, da ima na indeks kriminala veliko večji vpliv režim, ki vlada v državi, oziroma, kako stroge kazni sledijo zločinom. Poiskal sem indeks kriminala za Indijo (42.72) in Kitajsko (45.46) za leto 2019. Obe državi imata nižji indeks kriminala kot Švedska(49.35). 
+Zanimivo je tudi, da je Kitajska, v zadnjih 3 letih, močno znižala indeks kriminala (iz 45.46 na 28.82 ), kar je odraz strogega režima in represije, ki jo izvajajo nad ljudmi, ki kršijo zakone. Zato ne moremo enačiti nizkega indeksa kriminala s kvalitetnim življenjem. 
+
 ***
 
 ## Napredna analiza podatkov
 
-```{r analiza}
+```{r analiza, results='hide'}
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
