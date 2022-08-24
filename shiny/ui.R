@@ -1,3 +1,4 @@
+
 library(shiny)
 
 shinyUI(fluidPage( 
@@ -5,15 +6,22 @@ shinyUI(fluidPage(
   
   sidebarLayout( 
     sidebarPanel( 
-      uiOutput("izbor_stolpcev"), 
-      uiOutput("izbor_drzav") 
+      selectInput('drzava','Izberi državo:', unique(skupna$Drzava)),
+      sliderInput( "leto", "Izberi leta:", min = min(skupna$Leto), 
+                   max = max(skupna$Leto), step = 1, value = c(2013, 2019)),
+      selectInput('tip','Izberi tip podatka:', unique(skupna$tip))
     ), 
     mainPanel( 
       tabsetPanel( 
         id = 'dataset', 
-        tabPanel(value="tab_skupna",title = "Skupna", DT::dataTableOutput("tabelaSkupna"))
-        ) 
+        tabPanel("Graf", 
+                 plotOutput("graf")
+        )
       ) 
-      
-      
-    )))
+    ) 
+    
+    
+  )))
+
+
+

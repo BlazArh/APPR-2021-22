@@ -15,7 +15,7 @@ uvozvarnost <- function(){
   linkVarnost <-read_html(link)
   tabelavarnost <- linkVarnost %>% html_table(fill = TRUE)
   Varnost <- tabelavarnost[[2]] %>% select(-Rank) # -Rank spusti stolpec z imenom Rang
-  colnames(Varnost) <- c("Drzava", "Kriminal", "Varnost")
+  colnames(Varnost) <- c("Drzava", "kriminal", "varnost")
   Varnost$Leto <- leto
   Skupna <- Varnost
   # uvoz za vsa naslednja leta
@@ -24,7 +24,7 @@ uvozvarnost <- function(){
     linkVarnost <-read_html(link)
     tabelavarnost <- linkVarnost %>% html_table(fill = TRUE)
     Varnost <- tabelavarnost[[2]] %>% select(-Rank) # -Rank spusti stolpec z imenom Rang
-    colnames(Varnost) <- c("Drzava", "Kriminal", "Varnost")
+    colnames(Varnost) <- c("Drzava", "kriminal", "varnost")
     Varnost$Leto <- leto
     Skupna <- rbind(Skupna, Varnost)
   }
