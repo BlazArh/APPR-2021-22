@@ -60,6 +60,7 @@ Population  <- Population %>% pivot_longer(-Drzava, names_to = "Leto", values_to
 
 
 
+# dohodek je mišljen povprečni LETNI dohodek !!!
 
 linkdohodek <-read_html("https://en.wikipedia.org/wiki/List_of_countries_by_average_wage")
 Dohodek <- linkdohodek %>% html_table(fill = TRUE, dec = ",") #zelo pomemben tale dec = ,

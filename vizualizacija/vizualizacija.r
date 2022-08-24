@@ -8,13 +8,12 @@ library(cowplot)
 tabela1 <- skupna %>% filter(Leto == 2019 & tip == "dohodek")
 
 graf1 <- ggplot(data = tabela1) +
-  geom_bar(aes(x=reorder(Drzava, desc(vrednost)), y=vrednost), stat = "Identity", show.legend = F) +
+  geom_bar(aes(x=reorder(Drzava, desc(vrednost)), y=vrednost), stat = "Identity", show.legend = F, colour = "black", fill = "orange") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),text = element_text(size=8)) +
-  xlab("Country") + ylab("Dohodek") + ggtitle("Višina dohodka po drzavah") +
-  geom_hline(aes(yintercept = mean(vrednost)), size=1.5)
+  xlab("Država") + ylab("Povprečni letni dohodek ($)") + ggtitle("Višina povprečnega letnega dohodka ($) po državah") +
+  geom_hline(aes(yintercept = mean(vrednost)), size=1.5, colour = "black")
 
 print(graf1)
-# spremeni barvo!
 
 
 #-------------------------------------------------------------------------------
@@ -31,21 +30,21 @@ graf2 <- ggplot(tabela2, aes(x = Leto, y = vrednost, color = Drzava)) + geom_lin
 print(graf2)
 
 #-------------------------------------------------------------------------------
-#primerjam Slovenijo in Švic0 (dohodek izobrazba, populacija)
+#primerjam Slovenijo in Švico (dohodek izobrazba, populacija)
 
 graf_primerjava <- function(drzava, tip_podatka, naslov){
   tabela <- skupna %>% filter(Drzava == drzava)
   graf <- ggplot(data = tabela %>% filter (tip == tip_podatka), aes(x=Leto, y=vrednost), show.legend = F) +
-    geom_line() + geom_point()+ theme(legend.position = "none") +
+    geom_line(colour = "orange") + geom_point()+ theme(legend.position = "none") +
     ylab(naslov)
   graf
 }
 
 
-graf3 <- graf_primerjava("Slovenia", "dohodek", "Dohodek")
+graf3 <- graf_primerjava("Slovenia", "dohodek", "Povprečni letni dohodek ($)")
 graf4 <- graf_primerjava("Slovenia", "populacija", "Število prebivalcev")
 graf5 <- graf_primerjava("Slovenia", "izobrazba", "Indeks izobrazbe")
-graf6 <- graf_primerjava("Switzerland", "dohodek", "Dohodek")
+graf6 <- graf_primerjava("Switzerland", "dohodek", "Povprečni letni dohodek ($)")
 graf7 <- graf_primerjava("Switzerland", "populacija", "Število prebivalcev")
 graf8 <- graf_primerjava("Switzerland", "izobrazba", "Indeks izobrazbe")
 
@@ -62,7 +61,7 @@ tabela5 <- tabela5 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DV_2013 <- ggplot(tabela5, aes(x=dohodek, y = varnost))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2013") + xlab("Visina place") + ylab("Indeks varnosti")
+  ggtitle("2013") + xlab("Povprečni letni dohodek ($)") + ylab("Indeks varnosti")
 
 #dohodek, varnost za leto 2015
 tabela6 <- skupna %>% filter(Leto  == 2015 & tip %in% c("varnost", "dohodek"))
@@ -71,7 +70,7 @@ tabela6 <- tabela6 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DV_2015 <- ggplot(tabela6, aes(x=dohodek, y = varnost))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2015") + xlab("Visina place") + ylab("Indeks varnosti")
+  ggtitle("2015") + xlab("Povprečni letni dohodek ($)") + ylab("Indeks varnosti")
 
 #dohodek, varnost za leto 2017
 tabela7 <- skupna %>% filter(Leto  == 2017 & tip %in% c("varnost", "dohodek"))
@@ -80,7 +79,7 @@ tabela7 <- tabela7 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DV_2017 <- ggplot(tabela7, aes(x=dohodek, y = varnost))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2017") + xlab("Visina place") + ylab("Indeks varnosti")
+  ggtitle("2017") + xlab("Povprečni letni dohodek ($)") + ylab("Indeks varnosti")
 
 #dohodek, varnost za leto 2019
 tabela8 <- skupna %>% filter(Leto  == 2019 & tip %in% c("varnost", "dohodek"))
@@ -89,7 +88,7 @@ tabela8 <- tabela8 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DV_2019 <- ggplot(tabela5, aes(x=dohodek, y = varnost))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2019") + xlab("Visina place") + ylab("Indeks varnosti")
+  ggtitle("2019") + xlab("Povprečni letni dohodek ($)") + ylab("Indeks varnosti")
 
 #združim v en graf
 skupek2 <- plot_grid(gr_DV_2013, gr_DV_2015, gr_DV_2017, gr_DV_2019)
@@ -157,7 +156,7 @@ tabela13 <- tabela13 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DP_2013 <- ggplot(tabela13, aes(x=dohodek , y = populacija))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2013") + xlab("Dohodek") + ylab("Število prebivalcev")
+  ggtitle("2013") + xlab("Povprečni letni dohodek ($)") + ylab("Število prebivalcev")
 
 gr_DP_2013
 
@@ -168,7 +167,7 @@ tabela14 <- tabela14 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DP_2015 <- ggplot(tabela14, aes(x=dohodek , y = populacija))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2015") + xlab("Dohodek") + ylab("Število prebivalcev")
+  ggtitle("2015") + xlab("Povprečni letni dohodek ($)") + ylab("Število prebivalcev")
 
 gr_DP_2015
 
@@ -179,7 +178,7 @@ tabela15 <- tabela15 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DP_2017 <- ggplot(tabela13, aes(x=dohodek , y = populacija))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2017") + xlab("Dohodek") + ylab("Število prebivalcev")
+  ggtitle("2017") + xlab("Povprečni letni dohodek ($)") + ylab("Število prebivalcev")
 
 gr_DP_2017
 
@@ -190,7 +189,7 @@ tabela16 <- tabela16 %>% pivot_wider( names_from = tip, values_from = vrednost)
 gr_DP_2019 <- ggplot(tabela16, aes(x=dohodek , y = populacija))+
   geom_point() +
   geom_smooth(method = loess) +
-  ggtitle("2019") + xlab("Dohodek") + ylab("Število prebivalcev")
+  ggtitle("2019") + xlab("Povprečni letni dohodek ($)") + ylab("Število prebivalcev")
 
 gr_DP_2019
 
