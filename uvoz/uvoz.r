@@ -1,4 +1,7 @@
 source("lib/libraries.r", encoding="UTF-8")
+source("lib/gradnja_modelov.r")
+source("lib/kolena.r")
+source("lib/obrisi.r")
 
 # Uvoz, obdelava in čiščenje podatkov
 # uvozvarnost2012 <- function(Varnost2012){
@@ -50,6 +53,8 @@ colnames(Izobrazba) <- c("Drzava", 2013:2019) # uporabi raje regularni izraz da 
 Izobrazba  <- Izobrazba %>% pivot_longer(-Drzava, names_to = "Leto", values_to = "izobrazba")
 
 
+Izobrazba[Izobrazba$Drzava == "Czechia",]$Drzava <- "Czech Republic"
+
 
 Population <- read.csv("podatki/Population.csv", skip = 4, sep = ",")
 obdrzistolpec <- c("Country.Name","X2013","X2014", "X2015", "X2016","X2017","X2018","X2019")
@@ -57,6 +62,7 @@ Population <- Population[ , obdrzistolpec]
 Population <- na.omit(Population)
 colnames(Population) <- c("Drzava", 2013:2019)
 Population  <- Population %>% pivot_longer(-Drzava, names_to = "Leto", values_to = "populacija")
+
 
 
 

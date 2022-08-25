@@ -38,7 +38,7 @@ Za konec pa je zanimalo ali občutek varnosti vpliva na dohodek, ali število pr
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Podatke, potrebne za analizo, sem uvozil z Wikipedie in spletne strani Numeo (podatki so oblike HTML in CSV). Potem sem te podatke prečistil in spremenil v obliko tidy data. Dobil sem 4 manjše tabele in jih združil v eno veliko.
+Podatke, potrebne za analizo, sem uvozil z Wikipedie in spletne strani Numbeo (podatki so oblike HTML in CSV). Potem sem te podatke prečistil in spremenil v obliko tidy data. Dobil sem 4 manjše tabele in jih združil v eno veliko.
 
 1. Tabela s podatki o kriminalu in varnosti skozi leta 2013-2019:
   - `Leto` 
@@ -102,7 +102,7 @@ skupek2
 ```
 <br>
 <br>
-V ta graf sem združil grafe 4-ih let (2013, 2015, 2017, 2019) v katerih sem opazoval kako letni povprečni dohodek vpliva na indeks varnosti. Pričakoval sem, da bo graf stalno naraščal, saj se mi je zdelo smiselno, da več kot posameznik zasluži, več denarja nameni za varnost. Ampak izkazalo se je, da ni tako. Krivulje na vseh 4-ih grafih so v večini padale do cca. 45 000$, potem pa šele začele naraščati.
+V ta graf sem združil grafe 4-ih let (2013, 2015, 2017, 2019) v katerih sem opazoval kako letni povprečni dohodek vpliva na indeks varnosti. Pričakoval sem, da bo graf stalno naraščal, saj se mi je zdelo smiselno, da več kot posameznik zasluži, več denarja nameni za varnost. Ampak izkazalo se je, da ni tako. Krivulje na vseh 4-ih grafih so v večini padale do cca. 45000$, potem pa šele začele naraščati.
 <br>
 <br>
 
@@ -112,6 +112,19 @@ skupek3
 
 Ponovno sem združil 4 grafe za leta 2013, 2015, 2017, 2019. Tokrat me je zanimalo kako število prebivalcev vpliva na indeks kriminala. Moja pričakovanja so bila, da se bo izkazalo, da več kot je ljudi, več je kriminala. A tudi tukaj sem sklepal napačno. Iz grafov je vidno da v večini primerov število prebivalcev ne vpliva na indeks kriminala in da so krivulje kar konstantne. Hitro sem ugotovil, da ima na indeks kriminala veliko večji vpliv režim, ki vlada v državi, oziroma, kako stroge kazni sledijo zločinom. Poiskal sem indeks kriminala za Indijo (42.72) in Kitajsko (45.46) za leto 2019. Obe državi imata nižji indeks kriminala kot Švedska(49.35). 
 Zanimivo je tudi, da je Kitajska, v zadnjih 3 letih, močno znižala indeks kriminala (iz 45.46 na 28.82 ), kar je odraz strogega režima in represije, ki jo izvajajo nad ljudmi, ki kršijo zakone. Zato ne moremo enačiti nizkega indeksa kriminala s kvalitetnim življenjem. 
+<br>
+<br>
+
+```{r slikazemljevid, echo = FALSE, fig.align='center'}
+slikazemljevid
+```
+
+Na zemljevidu je prikazan povprečni letni bruto dohodek za 26 članic Evropske unije v letu 2019. Opazimo, da v povprečju največ zaslužijo prebivalci Islandije, Luxemburga in Švice, najmanj pa prebivalci Grčije, Slovaške in Madžarske. Najbolj me je presenetila razlika med temi državami, ki znaša več kot 40000$. Izvor nizkega dohodka v Grčiji je seveda huda finančna kriza, ki je zadela državo po letu 2008 (finančna kriza je nastopila po celem svetu, ampak na Grčijo je vplivala še močneje od večine ostalih evropskih držav).
+
+
+
+
+
 
 ***
 
