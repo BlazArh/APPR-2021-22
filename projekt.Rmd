@@ -21,7 +21,7 @@ source("lib/libraries.r", encoding="UTF-8")
 ## Izbira teme
 
 Za projektno nalogo sem si izbral temo, ki se vrti okoli povprečnega letnega dohodka v EU med letoma  2013 in 2019. Zanimalo me je, kako različni dejavniki vplivajo na povprečen letni dohodek. Za te dejavnike sem si izbral indeks varnosti in kriminala, stopnjo izobrazbe in število prebivalcev. Najprej bom pogledal, koliko držav ima nadpovprečni letni dohodek in koliko podpovrpečni. Potem bom primerjal, kako se giblje indeks kriminala skozi teh 7 let za 7 držav. Na kratko bom primerjal Švico in Slovenijo glede na povprečni letni dohodek, populacijo in stopnjo izobrazbe
-Za konec pa je zanimalo ali občutek varnosti vpliva na dohodek, ali število prebivalcev vpliva na indeks kriminala in če povprečen letni dohodek vpliva na število prebivalcev.
+Za konec pa je zanimalo ali dohodek vpliva na indeks varnosti, in če število prebivalcev vpliva na indeks kriminala.
 <br>
 <br>
 
