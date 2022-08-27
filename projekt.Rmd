@@ -134,6 +134,22 @@ Na zemljevidu je prikazan povprečni letni bruto dohodek za 26 članic Evropske 
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
+
+```{r slikazemljevid_skupine1, echo = FALSE, fig.align='center'}
+slikazemljevid_skupine1
+```
+
+Želel sem hirarhično razvrstiti države glede na indeks kriminala, indeks varnosti, stopnje kriminala in število prebivalsta (s podatki za vsa leta sem izračunal povprečje posameznih spremenljivk). S pomočjo dendrograma in funckije kolena, sem se odločil, da je najbolj optimalna delitev na 3 skupine. S pomočjo funkcije obrisi pa sem prišel do sklepa, da je najbolj optimalna delitev na 2 skupini. S to delitvijo nisem bil zadovoljen, saj se mi povezava med člani skupin ni zdela smiselna. Zato sem na zemljevid narisal prvo delitev.
+<br>
+<br>
+
+```{r napoved, echo = FALSE, fig.align='center'}
+napoved
+```
+
+Za konec pa sem se lotil napovedi indeksa kriminala. Izbral sem si tri modele. Prvi model je bil, da bi kriminal napovedali s pomočjo izobrazbe, in za graf uporabili premico (napaka = 6.780309). Pri drugem modelu sem za spremenljivke uporabil izobrazbo in dohodek, in ponovno uporabil premico (napaka = 7.713277). Za tretji model pa sem uporabil prvi model, ampak sem uporabil kvadratno funckijo (napaka = 5.376585). Ker je bila pri slednjem modelu napaka najmanjša, sem z njegovo pomočjo narisal graf napovedi za Slovenijo, pri indeksu kriminala med 88% in 93%.
+
+
 ***
 
 ```{r shiny}

@@ -48,9 +48,12 @@ Izobrazba <- head(Izobrazba, -17) #spustim zadnjih 17 stolpcev, ker je na koncu 
 Izobrazba <- Izobrazba %>% mutate(Country = str_trim(Country)) #znebim se presledka, ki je bil pred vsakim imenom države
 Izobrazba <- na.omit(Izobrazba)
 Izobrazba[,-1] <- as.data.frame(sapply(Izobrazba[,-1], as.numeric)) #spremenim tip stolpcev iz charachter v numeric
-Izobrazba[,-1] <- Izobrazba[,-1] * 100 #pomnožim * 100, da so enaki index safety in criminal 
-colnames(Izobrazba) <- c("Drzava", 2013:2019) # uporabi raje regularni izraz da odstraniš X iz let!!!!!!!!!!!!!!!!!!!!!
+Izobrazba[,-1] <- Izobrazba[,-1] * 100 #pomnožim * 100, da so enaki index safety in criminal
+#colnames(Izobrazba) <- c("Drzava", 2013:2019) 
+colnames(Izobrazba)[1] <- "Drzava"
 Izobrazba  <- Izobrazba %>% pivot_longer(-Drzava, names_to = "Leto", values_to = "izobrazba")
+Izobrazba$Leto <- str_extract(Izobrazba$Leto, "\\d\\d\\d\\d")
+
 
 
 Izobrazba[Izobrazba$Drzava == "Czechia",]$Drzava <- "Czech Republic"

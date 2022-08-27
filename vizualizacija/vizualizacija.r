@@ -204,6 +204,7 @@ skupek4 <- plot_grid(gr_DP_2013, gr_DP_2015, gr_DP_2017, gr_DP_2019)
 zemljevid <- uvozi.zemljevid("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/110m_cultural.zip",
                              "ne_110m_admin_0_countries", encoding="UTF-8") %>% fortify
 
+zemljevid[zemljevid$ADMIN == "Czechia",]$ADMIN <- "Czech Republic"
 zemljevid$ADMIN <- as.character(zemljevid$ADMIN)
 
 Dohodek_2019 <- skupna %>% filter(Leto == 2019 & tip == "dohodek")
@@ -213,6 +214,6 @@ zdruzitev <- left_join(zemljevid, Dohodek_2019, by=c("ADMIN"="Drzava"))
 slikazemljevid <- ggplot(zdruzitev) + 
   geom_polygon(aes(x = long, y = lat, group = group, fill = vrednost )) + xlab("") + ylab("") + ggtitle("Povprečni letni dohodek na prebivalca ($) 2019") + coord_cartesian(xlim=c(-30, 30), ylim=c(30, 70))
 slikazemljevid <- slikazemljevid + guides(fill=guide_legend(title="Povprečni letni dohodek ($)"))
-#slikazemljevid
+slikazemljevid
  
 

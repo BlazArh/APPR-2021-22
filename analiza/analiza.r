@@ -6,11 +6,17 @@ library(ranger)
 #Razvrščanje v skupine
 
 #Hierarhično razvrščanje v skupine s funkcijo hclust
-skupna_dendrogram <- skupna2 %>% filter(Leto == "2019")
-skupna_dendrogram$Leto <- NULL
-dendrogram <- skupna_dendrogram[,-1] %>% dist() %>% hclust(method= "ward.D")
-plot(dendrogram, labels = skupna_dendrogram$Drzava, ylab = "višina", main = NULL)
-rect.hclust(dendrogram, k = 2, border = "red")
+skupna_mean <- skupna2 %>% group_by(Drzava) %>% summarise(dohodek = mean(dohodek),
+                                                              populacija = mean(populacija),
+                                                              izobrazba = mean(izobrazba),
+                                                              kriminal = mean(varnost),
+                                                              varnost = mean(varnost))
+
+dendrogram <- skupna_mean[,-1] %>% scale()
+rownames(dendrogram) <- skupna_mean$Drzava
+dendrogram <- dendrogram %>% dist() %>% hclust(method= "ward.D")
+
+#plot(dendrogram)
 
 # izračunamo tabelo s koleni za dendrogram
 r = hc.kolena(dendrogram)
@@ -18,27 +24,21 @@ r = hc.kolena(dendrogram)
 # narišemo diagram višin združevanja
 diagram.kolena(r)
 
-#Za število skupin se na podlagi kolen odločim za k = 2
-skupine1 = dendrogram %>% cutree(k = 2) %>% as.ordered()
+
+#Za število skupin se na podlagi kolen odločim za k = 3
+skupine1 = dendrogram %>% cutree(k = 3) %>% as.ordered()
 
 
 #Uporabimo metodo k-tih voditeljev
 #Ugotavljamo optimalno število skupin
-skupna_skupine <- skupna2 %>% filter(Leto == "2019")
-skupna_skupine$Leto <- NULL
-r.hc = skupna_skupine[, -1] %>% obrisi(hc = TRUE)
-diagram.obrisi(r.hc)
 
-
-# FALSE; 
-
-r.km = skupna_skupine[, -1] %>% obrisi(hc = FALSE)
+r.km = skupna_mean[, -1] %>% obrisi(hc = FALSE)
 diagram.obrisi(r.km)
-#Na obeh diagramih je optimalno število skupin k = 2
+
 
 
 set.seed(42)
-skupine2 = skupna_skupine[, -1] %>%
+skupine2 = skupna_mean[, -1] %>%
   kmeans(centers = 2) %>%
   getElement("cluster") %>%
   as.ordered()
@@ -46,72 +46,36 @@ skupine2 = skupna_skupine[, -1] %>%
 
 #MEJE!!!!!
 
-skupna_skupine["Skupina"] <- skupine2
-skupna_skupine <- skupna_skupine[c("Drzava", "Skupina")]
-zdruzitev_skupine <- left_join(zemljevid, skupna_skupine, by=c("ADMIN"="Drzava"))
-slikazemljevid_skupine <- ggplot(zdruzitev_skupine) + 
+skupna_mean["Skupina"] <- skupine1
+skupna_mean1 <- skupna_mean[c("Drzava", "Skupina")]
+zdruzitev_skupine1 <- left_join(zemljevid, skupna_mean1, by=c("ADMIN"="Drzava"))
+slikazemljevid_skupine1 <- ggplot(zdruzitev_skupine1) + 
   geom_polygon(aes(x = long, y = lat, group = group, fill = Skupina )) + xlab("") + ylab("") + ggtitle("Skupine") + coord_cartesian(xlim=c(-30, 30), ylim=c(30, 70))
-slikazemljevid_skupine <- slikazemljevid_skupine + guides(fill=guide_legend(title="Skupina"))
-slikazemljevid_skupine
+slikazemljevid_skupine1 <- slikazemljevid_skupine1 + guides(fill=guide_legend(title="Skupina"))
+slikazemljevid_skupine1
 
 
+skupna_mean["Skupina"] <- skupine2
+skupna_mean2 <- skupna_mean[c("Drzava", "Skupina")]
+zdruzitev_skupine2 <- left_join(zemljevid, skupna_mean2, by=c("ADMIN"="Drzava"))
+slikazemljevid_skupine2 <- ggplot(zdruzitev_skupine2) + 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Skupina )) + xlab("") + ylab("") + ggtitle("Skupine") + coord_cartesian(xlim=c(-30, 30), ylim=c(30, 70))
+slikazemljevid_skupine2 <- slikazemljevid_skupine2 + guides(fill=guide_legend(title="Skupina"))
+slikazemljevid_skupine2
+
+zlepek <- plot_grid(slikazemljevid_skupine1, slikazemljevid_skupine2)
+zlepek
 #NAPOVEDI
 
 #Korelacija med spremenljivkami
 slovenija <- skupna2 %>% filter(Drzava == "Slovenia")
 
-kriminal_izobrazba <- ggplot(data=slovenija, aes(x= izobrazba, y= kriminal)) + geom_point() + geom_smooth(method="lm", formula = y ~x)
-print(kriminal_izobrazba)
+# prvi model
+m1 <- lm(kriminal ~ izobrazba, data = slovenija)
+# drug model
+m2 <- lm(kriminal ~ izobrazba + dohodek, data = slovenija)
 
-kriminal_dohodek <- ggplot(data=slovenija, aes(x= dohodek, y= kriminal)) + geom_point() + geom_smooth(method="lm", formula = y ~x)
-print(kriminal_dohodek)
-
-
-#Z uporabo linearne regresije bom napovedal prihodnji kriminal Slovenije glede na:
-
-
-
-# predavanja, lin regresija, naključni gozdovi
-
-#dohodek in izobrazba
-lin.reg.varnost_izobrazba = lm(kriminal ~ dohodek + izobrazba, data = slovenija)
-print(lin.reg.varnost_izobrazba)
-
-#populacija in dohodek
-lin.reg.populacija_dohodek = lm(kriminal ~ populacija + dohodek, data = slovenija)
-print(lin.reg.populacija_dohodek)
-
-#kao bolj kompleksno
-lin.model1 = slovenija %>% ucenje(kriminal ~ dohodek + izobrazba, "lin.reg")
-print(skupna2 %>% napaka_regresije(lin.model1, "lin.reg"))
-
-ng.reg.model1 = slovenija %>% ucenje(kriminal ~ dohodek + izobrazba, "ng")
-print(skupna2 %>% napaka_regresije(ng.reg.model1, "ng"))
-
-
-lin.model2 = slovenija %>% ucenje(kriminal ~ populacija + dohodek, "lin.reg")
-print(skupna2 %>% napaka_regresije(lin.model2, "lin.reg"))
-
-ng.reg.model2 = slovenija %>% ucenje(kriminal ~ populacija + dohodek, "ng")
-print(skupna2 %>% napaka_regresije(ng.reg.model2, "ng"))
-
-
-#Najboljsi model je kriminal ~ dohodek + izobrazba z metodo nakljucnih gozdov
-lm.napovedi <- predict(ng.reg.model1, data = slovenija)$predictions
-print(lm.napovedi)
-#ggplot(lm.napovedi)
-
-
-#isto kot zgoraj. malo drugače
-#Kot na vajah preizkusimo modele do vključno stopnje pet in na podlagi petkratnega prečnega 
-# preverjanja izberemo tistega z najmanjšo kvadratno napako. 
-
-set.seed(123)
-podatki <- slovenija
-k <- 5
-formula <- kriminal ~ izobrazba
-
-
+# kateri model je boljši?
 napaka.cv <- function(podatki, k, formula) {
   set.seed(123)
   n <- nrow(podatki)
@@ -119,7 +83,6 @@ napaka.cv <- function(podatki, k, formula) {
   
   razrez <- cut(1:n, k, labels=FALSE)
   razbitje <- split(r, razrez)
-  razbitje
   
   
   #pripravimo vektor za napovedi
@@ -142,23 +105,40 @@ napaka.cv <- function(podatki, k, formula) {
   napaka <- mean((pp.napovedi - podatki$kriminal)^2)
   return(napaka)
 }
-napaka.cv(slovenija, 5, kriminal ~ izobrazba)
 
-formule <- c(kriminal ~ izobrazba,
-             kriminal ~ izobrazba + I(izobrazba^2),
-             kriminal ~ izobrazba + I(izobrazba^2) + I(izobrazba^3),
-             kriminal ~ izobrazba + I(izobrazba^2) + I(izobrazba^3), 
-             kriminal ~ izobrazba + I(izobrazba^2) + I(izobrazba^3),
-             kriminal ~ izobrazba + I(izobrazba^2) + I(izobrazba^3) + I(izobrazba^4),
-             kriminal ~ izobrazba + I(izobrazba^2) + I(izobrazba^3) + I(izobrazba^4) + I(izobrazba^5))
+napaka.cv(slovenija, 2, kriminal ~ izobrazba)
+napaka.cv(slovenija, 2, kriminal ~ izobrazba + I(izobrazba^2))
+napaka.cv(slovenija, 2,  kriminal ~ izobrazba + dohodek)
+# srednji model je boljši
 
-napake <- rep(0,5)
-for (i in 1:5){
-  formula <- formule[[i]]
-  napaka <- napaka.cv(slovenija, 5, formula)
-  napake[i] <- napaka
-}
 
-which.min(napake)
-napake
-model <- lm(data=slovenija, formula = kriminal ~ izobrazba)
+m3 = lm(kriminal ~ izobrazba + I(izobrazba^2), data = slovenija)
+param <- m3$coefficients
+beta0 <- param[1]
+beta1 <- param[2]
+beta2 <- param[3]
+
+summary(m3)
+data_napoved = slovenija[,c(5:6)]
+data_napoved$napoved <- beta0 + beta1 * data_napoved$izobrazba + beta2 * data_napoved$izobrazba^2
+
+iz <- seq(88, 92, by = 0.5)
+nap <- beta0 + beta1 * iz + beta2 * iz^2
+n <- length(iz)
+df = data.frame(izobrazba = iz, kriminal = rep(NA, n), napoved = nap)
+
+data_napoved = rbind(data_napoved, df)
+napoved <- ggplot(data=data_napoved, aes(x= izobrazba, y= kriminal)) + geom_point() +
+  geom_line(aes(y = napoved), color = "red")+
+  xlab("Stopnja izobrazbe") + ylab("Indeks kriminala")
+
+napoved
+
+
+
+
+
+
+
+
+
