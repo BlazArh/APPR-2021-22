@@ -20,7 +20,7 @@ source("lib/libraries.r", encoding="UTF-8")
 
 ## Izbira teme
 
-Za projektno nalogo sem si izbral temo, ki se vrti okoli povprečnega letnega dohodka v EU med letoma  2013 in 2019. Zanimalo me je, kako različni dejavniki vplivajo na povprečen letni dohodek. Za te dejavnike sem si izbral indeks varnosti in kriminala, stopnjo izobrazbe in število prebivalcev. Najprej bom pogledal koliko držav ima nadpovprečni letni dohodek in koliko podpovrpečni. Potem bom primerjal kako se giblje indeks kriminala skozi teh 7 let.
+Za projektno nalogo sem si izbral temo, ki se vrti okoli povprečnega letnega dohodka v EU med letoma  2013 in 2019. Zanimalo me je, kako različni dejavniki vplivajo na povprečen letni dohodek. Za te dejavnike sem si izbral indeks varnosti in kriminala, stopnjo izobrazbe in število prebivalcev. Najprej bom pogledal, koliko držav ima nadpovprečni letni dohodek in koliko podpovrpečni. Potem bom primerjal, kako se giblje indeks kriminala skozi teh 7 let za 7 držav. Na kratko bom primerjal Švico in Slovenijo glede na povprečni letni dohodek, populacijo in stopnjo izobrazbe
 Za konec pa je zanimalo ali občutek varnosti vpliva na dohodek, ali število prebivalcev vpliva na indeks kriminala in če povprečen letni dohodek vpliva na število prebivalcev.
 <br>
 <br>
@@ -84,7 +84,7 @@ Za začetek sem narisal graf iz katerega je razvidno koliko je povprečni letni 
 graf2
 ```
 
-Za ta graf sem si izbral 7 različnih članic iz EU in primerjal, kako se med letoma 2013 in 2019 giblje indeks kriminala. Izbral sem si Avstrijo, Francijo, Nemčijo, Grčijo, Islandijo, Italijo, Slovenijo, Švedsko (želel sem si izbrati čim bolj različne države in države, ki so okoli Slovenije). Edini državi, v katerih indekst kriminala raste, sta, presenetljivo, dve visoko razviti državi Nemčija in Švedska.
+Za ta graf sem si izbral 7 različnih članic iz EU in primerjal, kako se med letoma 2013 in 2019 giblje indeks kriminala. Kaj sploh je indeks kriminala? Indeks kriminala je stopnja pogostosti kriminala na določenem območju, relativno na celotno državo. Izbral sem si Avstrijo, Francijo, Nemčijo, Grčijo, Islandijo, Italijo, Slovenijo, Švedsko (želel sem si izbrati čim bolj različne države in države, ki so okoli Slovenije). Edini državi, v katerih indekst kriminala raste, sta, presenetljivo, dve, visoko razviti državi, Nemčija in Švedska.
 <br>
 <br>
 
@@ -93,7 +93,7 @@ Za ta graf sem si izbral 7 različnih članic iz EU in primerjal, kako se med le
 skupek1
 ```
 
-V tem skupku 6-ih grafov sem primerjal Švico in Slovenijo in sicer glede na povprečni letni dohodek, število prebivalcev in indeks izobrazbe med leti 2013 in 2019. V zgornji vrstici je opisana Slovenija v spodnji pa Švica. Pri obeh državah, kjub nizki rodnosti, število prebivalcev še vedno raste. Zanimivo je tudi to, da kljub opazno nižjem povprečnem letnem dohodku Slovenija drži priključek v stopnji izobrazbe.
+V tem skupku 6-ih grafov sem primerjal Švico in Slovenijo in sicer glede na povprečni letni dohodek, število prebivalcev in indeks izobrazbe med leti 2013 in 2019. V zgornji vrstici je opisana Slovenija, v spodnji pa Švica. Pri obeh državah, kjub nizki rodnosti, število prebivalcev še vedno raste. Zanimivo je tudi to, da kljub opazno nižjem povprečnem letnem dohodku Slovenija drži priključek v stopnji izobrazbe.
 <br>
 <br>
 
@@ -110,7 +110,7 @@ V ta graf sem združil grafe 4-ih let (2013, 2015, 2017, 2019) v katerih sem opa
 skupek3
 ```
 
-Ponovno sem združil 4 grafe za leta 2013, 2015, 2017, 2019. Tokrat me je zanimalo kako število prebivalcev vpliva na indeks kriminala. Moja pričakovanja so bila, da se bo izkazalo, da več kot je ljudi, več je kriminala. A tudi tukaj sem sklepal napačno. Iz grafov je vidno da v večini primerov število prebivalcev ne vpliva na indeks kriminala in da so krivulje kar konstantne. Hitro sem ugotovil, da ima na indeks kriminala veliko večji vpliv režim, ki vlada v državi, oziroma, kako stroge kazni sledijo zločinom. Poiskal sem indeks kriminala za Indijo (42.72) in Kitajsko (45.46) za leto 2019. Obe državi imata nižji indeks kriminala kot Švedska(49.35). 
+Ponovno sem združil 4 grafe za leta 2013, 2015, 2017, 2019. Tokrat me je zanimalo, kako število prebivalcev vpliva na indeks kriminala. Moja pričakovanja so bila, da se bo izkazalo, da več kot je ljudi, več je kriminala. A tudi tukaj sem sklepal napačno. Iz grafov je vidno, da v večini primerov število prebivalcev ne vpliva na indeks kriminala in da so krivulje kar konstantne. Hitro sem ugotovil, da ima na indeks kriminala veliko večji vpliv režim, ki vlada v državi, oziroma, kako stroge kazni sledijo zločinom. Poiskal sem indeks kriminala za Indijo (42.72) in Kitajsko (45.46) za leto 2019. Obe državi imata nižji indeks kriminala kot Švedska(49.35). 
 Zanimivo je tudi, da je Kitajska, v zadnjih 3 letih, močno znižala indeks kriminala (iz 45.46 na 28.82 ), kar je odraz strogega režima in represije, ki jo izvajajo nad ljudmi, ki kršijo zakone. Zato ne moremo enačiti nizkega indeksa kriminala s kvalitetnim življenjem. 
 <br>
 <br>
@@ -118,9 +118,11 @@ Zanimivo je tudi, da je Kitajska, v zadnjih 3 letih, močno znižala indeks krim
 ```{r slikazemljevid, echo = FALSE, fig.align='center'}
 slikazemljevid
 ```
-
+<br>
+<br>
 Na zemljevidu je prikazan povprečni letni bruto dohodek za 26 članic Evropske unije v letu 2019. Opazimo, da v povprečju največ zaslužijo prebivalci Islandije, Luxemburga in Švice, najmanj pa prebivalci Grčije, Slovaške in Madžarske. Najbolj me je presenetila razlika med temi državami, ki znaša več kot 40000$. Izvor nizkega dohodka v Grčiji je seveda huda finančna kriza, ki je zadela državo po letu 2008 (finančna kriza je nastopila po celem svetu, ampak na Grčijo je vplivala še močneje od večine ostalih evropskih držav).
-
+<br>
+<br>
 
 
 
@@ -147,8 +149,9 @@ slikazemljevid_skupine1
 napoved
 ```
 
-Za konec pa sem se lotil napovedi indeksa kriminala. Izbral sem si tri modele. Prvi model je bil, da bi kriminal napovedali s pomočjo izobrazbe, in za graf uporabili premico (napaka = 6.780309). Pri drugem modelu sem za spremenljivke uporabil izobrazbo in dohodek, in ponovno uporabil premico (napaka = 7.713277). Za tretji model pa sem uporabil prvi model, ampak sem uporabil kvadratno funckijo (napaka = 5.376585). Ker je bila pri slednjem modelu napaka najmanjša, sem z njegovo pomočjo narisal graf napovedi za Slovenijo, pri indeksu kriminala med 88% in 93%.
-
+Za konec pa sem se lotil napovedi indeksa kriminala. Izbral sem si tri modele. Prvi model je bil, da bi kriminal napovedal s pomočjo izobrazbe, in za graf uporabil premico (napaka = 6.780309). Pri drugem modelu sem za spremenljivke uporabil izobrazbo in dohodek, in ponovno uporabil premico (napaka = 7.713277). Za tretji model pa sem uporabil prvi model, ampak sem uporabil kvadratno funckijo (napaka = 5.376585). Ker je bila pri slednjem modelu napaka najmanjša, sem z njegovo pomočjo narisal graf napovedi indeksa kriminala za Slovenijo, pri stopnji izobrazbe med 88% in 93%.
+<br>
+<br>
 
 ***
 
