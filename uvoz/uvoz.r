@@ -16,8 +16,8 @@ uvozvarnost <- function(){
   leto <- 2013
   link = paste0("https://www.numbeo.com/crime/rankings_by_country.jsp?title=", leto, "-Q1&region=150")
   linkVarnost <-read_html(link)
-  tabelavarnost <- linkVarnost %>% html_table(fill = TRUE)
-  Varnost <- tabelavarnost[[2]] %>% select(-Rank) # -Rank spusti stolpec z imenom Rang
+  tabelavarnost <- linkVarnost %>% html_table(fill = TRUE)  # fill doda na v prazne
+  Varnost <- tabelavarnost[[2]] %>% select(-Rank) # -Rank spusti stolpec z imenom Rang, [[2]] je ker sta dve tabeli, mi hočemo drugo
   colnames(Varnost) <- c("Drzava", "kriminal", "varnost")
   Varnost$Leto <- leto
   Skupna <- Varnost

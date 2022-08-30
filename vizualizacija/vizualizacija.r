@@ -205,6 +205,7 @@ zemljevid <- uvozi.zemljevid("https://www.naturalearthdata.com/http//www.natural
                              "ne_110m_admin_0_countries", encoding="UTF-8") %>% fortify
 
 zemljevid[zemljevid$ADMIN == "Czechia",]$ADMIN <- "Czech Republic"
+class(zemljevid$ADMIN)
 zemljevid$ADMIN <- as.character(zemljevid$ADMIN)
 
 Dohodek_2019 <- skupna %>% filter(Leto == 2019 & tip == "dohodek")
